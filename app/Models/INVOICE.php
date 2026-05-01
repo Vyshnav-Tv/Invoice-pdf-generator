@@ -9,7 +9,9 @@ class INVOICE extends Model
 {
     use HasFactory;
 
-    protected $fillable = [];
+    protected $table = 'invoices';
+    protected $guarded = [];
+
 
     public function items()
     {

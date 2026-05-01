@@ -4,11 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\InvoiceRequest;
 use Illuminate\Http\Request;
-use InvoiceService;
+use App\Services\InvoiceService;
+
+
 
 class InvoiceController extends Controller
 {
     protected $invoiceService;
+    
 
     public function __construct(InvoiceService $invoiceService)
     {

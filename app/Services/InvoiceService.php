@@ -1,9 +1,12 @@
 <?php
 
+namespace App\Services;
 use App\Http\Requests\InvoiceRequest;
 use App\Models\INVOICE;
 use App\Models\INVOICE_ITEMS;
 use Illuminate\Support\Str;
+
+
 class InvoiceService
 {
 
@@ -40,9 +43,6 @@ class InvoiceService
                 $item_taxable_amount = $item_total - ($discount_amount * ($item_total / $sub_total));
                 $cgst = $item_taxable_amount * ($item['gst_rate'] / 100) / 2;
                 $sgst = $item_taxable_amount * ($item['gst_rate'] / 100) / 2;
-                $cgst =
-                    $total_cgst += $cgst;
-                $total_sgst += $sgst;
 
                 INVOICE_ITEMS::create([
                     'invoice_id' => $invoice->id,
@@ -78,5 +78,3 @@ class InvoiceService
         }
     }
 }
-
-
