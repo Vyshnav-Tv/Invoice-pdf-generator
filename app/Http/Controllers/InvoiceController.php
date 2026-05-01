@@ -23,4 +23,8 @@ class InvoiceController extends Controller
         return $this->invoiceService->create_Invoice($request);
     }
 
+
+    public function show($id){
+        return $this->invoiceService->show($id);
+    }
 }

@@ -43,6 +43,10 @@ class InvoiceService
                 $item_taxable_amount = $item_total - ($discount_amount * ($item_total / $sub_total));
                 $cgst = $item_taxable_amount * ($item['gst_rate'] / 100) / 2;
                 $sgst = $item_taxable_amount * ($item['gst_rate'] / 100) / 2;
+                $total= $item_taxable_amount + $cgst + $sgst;
+
+                $total_cgst += $cgst;
+                $total_sgst += $sgst;
 
                 INVOICE_ITEMS::create([
                     'invoice_id' => $invoice->id,
@@ -50,24 +54,29 @@ class InvoiceService
                     'quantity' => $item['quantity'],
                     'price' => $item['price'],
                     'gst_rate' => $item['gst_rate'],
+                    'taxable_amount' => $item_taxable_amount,
                     'cgst' => $cgst,
                     'sgst' => $sgst,
-                    'total' => $item_total
+                    'total' => $total
                 ]);
             }
+
 
             $grand_total = $taxable_amount + $total_cgst + $total_sgst;
 
             $invoice->update([
                 'total_cgst' => $total_cgst,
                 'total_sgst' => $total_sgst,
-                'grand_total' => $grand_total
+                'grand_total'=> $grand_total
             ]);
+
+            $invoice->refresh();
 
             return
                 response()->json([
                     'success' => true,
-                    'message' => 'Invoice created successfully'
+                    'message' => 'Invoice created successfully',
+                    'invoice_id'=> $invoice->id
                 ]);
         } 
         catch (\Exception $e) {
@@ -76,5 +85,13 @@ class InvoiceService
                 'message' => 'Failed to create invoice: ' . $e->getMessage()
             ]);
         }
+    }
+
+
+    public function show($id)
+    {
+        $invoice = Invoice::with('items')->find($id);
+
+        return view('invoice', compact('invoice'));
     }
 }
