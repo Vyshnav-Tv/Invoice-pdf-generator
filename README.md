@@ -93,24 +93,13 @@ GET `/api/invoice/{invoice_id}`
 
 ---
 
-📁 Project Structure
-app/
-├── Models/
-├── Http/Controllers/
-│   └── InvoiceController.php
-├── Services/
-│   └── InvoiceService.php
-
-database/
-└── migrations/
-
-resources/
-└── views/
-    └── invoice.blade.php
-
-routes/
-├── api.php
-└── web.php
+📁 Project Structure 
+app/ 
+database/migrations/
+resources/views/invoice.blade.php 
+Services/InvoiceService
+Controller/InvoiceController
+reoutes/api.php
 
 
 
