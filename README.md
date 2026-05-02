@@ -111,3 +111,10 @@ reoutes/api.php
 
 ---
 
+
+PDF-image
+---------
+
+<img width="1920" height="1080" alt="invoice_pdf" src="https://github.com/user-attachments/assets/82dec164-709a-4202-9bf3-122687bc03ee" />
+
+
