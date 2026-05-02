@@ -95,10 +95,10 @@ GET `/api/invoice/{invoice_id}`
 
 📁 Project Structure 
 app/ 
-database/migrations/
-resources/views/invoice.blade.php 
-Services/InvoiceService
-Controller/InvoiceController
+database/migrations/||
+resources/views/invoice.blade.php|| 
+Services/InvoiceService||
+Controller/InvoiceController||
 reoutes/api.php
 
 
