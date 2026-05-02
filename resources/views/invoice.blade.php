@@ -5,7 +5,7 @@
     <style>
         body { font-family: Arial, sans-serif; }
         .container { width: 100%; padding: 20px; }
-        .flex { display: flex; justify-content: space-between; }
+        .flex { display:inline-block; justify-content: space-between; }
         .box { border: 1px solid #ddd; padding: 10px; width: 48%; }
         table { width: 100%; border-collapse: collapse; margin-top: 20px; }
         table, th, td { border: 1px solid #ddd; }
@@ -23,6 +23,7 @@
         <div>
             <p><strong>Invoice#:</strong> {{ $invoice->invoice_number }}</p>
             <p><strong>Invoice Date:</strong> {{ $invoice->invoice_date }}</p>
+            <p><strong>Due Date:</strong> {{ $invoice->due_date }}</p>
         </div>
         <div>
             <h3>Invoice Labs</h3>
@@ -32,21 +33,23 @@
     <div class="flex">
         <div class="box">
             <strong>Billed By</strong>
-            <p>{{ $invoice->user_id}}</p>
-            
+            <p>{{ $invoice->company->name }}</p>
+            <p>{{ $invoice->company->address }}</p>
+            <p>GSTIN: {{ $invoice->company->gstin }}</p>
+            <p>PAN: {{ $invoice->company->pan }}</p>
         </div>
 
-        <!-- <div class="box">
+        <div class="box">
             <strong>Billed To</strong>
-            <p>{{ $invoice->bill_to_name }}</p>
-            <p>{{ $invoice->bill_to_address }}</p>
-            <p>GSTIN: {{ $invoice->gstin_to }}</p>
-            <p>PAN: {{ $invoice->pan_to }}</p>
-        </div> -->
+            <p>{{ $invoice->customer->name }}</p>
+            <p>{{ $invoice->customer->address }}</p>
+            <p>GSTIN: {{ $invoice->customer->gstin }}</p>
+            <p>PAN: {{ $invoice->customer->pan }}</p>
+        </div>
     </div>
-<!-- 
-    <p><strong>Place of Supply:</strong> {{ $invoice->place_of_supply }}</p>
-    <p><strong>Country of Supply:</strong> {{ $invoice->country_of_supply }}</p> -->
+
+    <p><strong>Place of Supply:</strong> {{ $invoice->company->place }}</p>
+    <p><strong>Country of Supply:</strong> {{ $invoice->company->country }}</p>
 
     <!-- ITEMS TABLE -->
     <table>
@@ -69,28 +72,32 @@
                 <td>{{ $item->item_name }}</td>
                 <td>{{ $item->quantity }}</td>
                 <td>{{ $item->gst_rate }}%</td>
-                <td>₹ {{ $item->taxable_amount }}</td>
-                <td>₹ {{ $item->sgst }}</td>
-                <td>₹ {{ $item->cgst }}</td>
-                <td>₹ {{ $item->total }}</td>
+                <td> {{ $item->taxable_amount }}</td>
+                <td> {{ $item->sgst }}</td>
+                <td> {{ $item->cgst }}</td>
+                <td>{{ $item->total }}</td>
             </tr>
             @endforeach
         </tbody>
     </table>
 
     <div class="right">
-        <p>Sub Total: ₹ {{ $invoice->subtotal }}</p>
-        <p>Discount: ₹ {{ $invoice->discount_amount}}</p>
-        <p>Taxable Amount: ₹ {{ $invoice->taxable_amount }}</p>
-        <p>CGST: ₹ {{ $invoice->total_cgst }}</p>
-        <p>SGST: ₹ {{ $invoice->total_sgst }}</p>
-        <h3>Total: ₹ {{ $invoice->grand_total }}</h3>
+        <p>Sub Total:  {{ $invoice->subtotal }}</p>
+        <p>Discount:  {{ $invoice->discount_amount}}</p>
+        <p>Taxable Amount: {{ $invoice->taxable_amount }}</p>
+        <p>CGST:  {{ $invoice->total_cgst }}</p>
+        <p>SGST:  {{ $invoice->total_sgst }}</p>
+        <h3>Total: {{ $invoice->grand_total }}</h3>
         <p><strong> Invoice Total(In Words:)</strong> {{ amount_in_words($invoice->grand_total) }}</p>
     </div>
 
 
     <h4>Bank & Payment Details</h4>
-    <p>Account Holder:</p>
+    <p>Account Holder:{{ $invoice->company->name }}</p>
+    <p>Bank Name: {{ $invoice->company->bankDetails->bank_name }}</p>
+    <p>Account Number: {{ $invoice->company->bankDetails->account_number }}</p>
+    <p>IFSC Code: {{ $invoice->company->bankDetails->ifsc_code }}</p>
+    <p>Account Type: {{ $invoice->company->bankDetails->account_type }}</p>
     <p>UPI: invoicedemo@ybl</p>
 
   
@@ -100,6 +107,7 @@
 
   
     <h4>Additional Notes</h4>
+    <p>invoicedemo@gmail.com</p>
 
 </div>
 

@@ -26,7 +26,9 @@ class InvoiceRequest extends FormRequest
         return[
 
             'discount_amount' => 'nullable|numeric',
-
+            'customer_id' => 'required|exists:customers,id',
+            'company_id' => 'required|exists:company,id',
+            'due_date' => 'nullable|date|after_or_equal:today',
             'items' => 'required|array|min:1',
 
             'items.*.item_name' => 'required|string|max:255',

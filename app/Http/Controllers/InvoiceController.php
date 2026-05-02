@@ -24,7 +24,7 @@ class InvoiceController extends Controller
     }
 
 
-    public function show($id){
-        return $this->invoiceService->show($id);
+    public function download_Pdf($id){
+        return $this->invoiceService->download_Pdf($id);
     }
 }

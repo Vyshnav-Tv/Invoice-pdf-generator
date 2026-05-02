@@ -4,6 +4,7 @@ namespace App\Services;
 use App\Http\Requests\InvoiceRequest;
 use App\Models\INVOICE;
 use App\Models\INVOICE_ITEMS;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Str;
 
 
@@ -16,6 +17,8 @@ class InvoiceService
             $sub_total = 0;
             $total_cgst = 0;
             $total_sgst = 0;
+
+            $due_date = $request->due_date;
 
             foreach ($request->items as $item) {
 
@@ -31,6 +34,9 @@ class InvoiceService
                 'user_id' => auth()->id(),
                 'invoice_number' => 'INV-' . strtoupper(Str::random(6)),
                 'invoice_date' => now(),
+                'due_date'=>$due_date?? now()->addDays(7),
+                'customer_id' => $request->customer_id,
+                'company_id' => $request->company_id,
                 'subtotal' => $sub_total,
                 'discount_amount' => $discount_amount,
                 'taxable_amount' => $taxable_amount,
@@ -88,10 +94,12 @@ class InvoiceService
     }
 
 
-    public function show($id)
+    public function download_Pdf($id)
     {
-        $invoice = Invoice::with('items')->find($id);
+        $invoice = Invoice::with(['items','customer','company'])->find($id);
+        
+        $pdf = Pdf::loadView('invoice', compact('invoice'));
 
-        return view('invoice', compact('invoice'));
+        return $pdf->download('invoice-' . $invoice->invoice_number . '.pdf');
     }
 }

@@ -20,9 +20,9 @@ use App\Http\Controllers\AuthController;
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 
-    Route::get('/invoice/{id}', [InvoiceController::class, 'show']);
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('/invoices', [InvoiceController::class, 'create_Invoice']);
+    Route::get('/invoice/{id}', [InvoiceController::class, 'download_Pdf']);
 });
 
