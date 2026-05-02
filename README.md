@@ -113,8 +113,8 @@ reoutes/api.php
 
 
 PDF-image
----------
-<img width="661" height="650" alt="og_invoicescreen (1)" src="https://github.com/user-attachments/assets/dc4ffda8-39fc-4e42-8041-a2474d5a29be" />
+---------<img width="658" height="656" alt="iziziz" src="https://github.com/user-attachments/assets/49f53128-813d-4742-be00-7ce82a50d4c7" />
+
 
 
 
