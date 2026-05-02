@@ -114,7 +114,7 @@ reoutes/api.php
 
 PDF-image
 ---------
+<img width="661" height="650" alt="og_invoicescreen (1)" src="https://github.com/user-attachments/assets/dc4ffda8-39fc-4e42-8041-a2474d5a29be" />
 
-<img width="1920" height="1080" alt="invoice_pdf" src="https://github.com/user-attachments/assets/82dec164-709a-4202-9bf3-122687bc03ee" />
 
 
